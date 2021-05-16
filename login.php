@@ -1,3 +1,43 @@
+<?php require_once("config.php"); ?>
+
+<?php
+    $msg=""; 
+
+    if(isset($_POST['login'])){
+        $userName=$_POST['userName'];
+        $password=$_POST['password'];
+        $options = array("cost"=>4);
+        $password=password_hash($password,PASSWORD_DEFAULT,$options);
+        $userType=$_POST['userType'];
+
+        $sql= "SELECT * FROM users WHERE userName=? AND password=? AND userType=?";
+        $stmt=$conn->prepare($sql);
+        $stmt->bind_param("sss",$userName,$password,$userType);
+        $stmt->execute();
+        $result=$stmt->get_result();
+        $row=$result->fetch_assoc();
+
+        session_regenerate_id();
+        $_SESSION['userName']=$row['userName'];
+        $_SESSION['userType']=$row['userType'];
+        session_write_close();
+
+        if($result->num_rows==1 && $_SESSION['userType']=="Student"){
+            header("loacation:studentDashboard.php");//temp code for directing student login to sucess dashboard page 
+        }
+        else if($result->num_rows==1 && $_SESSION['userType']=="Faculty"){
+            header("loacation:facultyDashboard.php");//temp code for directing faculty login to sucess dashboard page 
+        }
+        else if($result->num_rows==1 && $_SESSION['userType']=="Admin"){
+            header("loacation:adminDashboard.php");//temp code for directing admin login to sucess dashboard page 
+        }
+        else{
+            $msg="User or Password is Incorrect!";
+        }
+    }
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -83,7 +123,7 @@ div {
 <body>
 
     <div class="d-flex justify-content-center align-items-center login-container">
-        <form action="" method="POST" class="login-form text-center">
+        <form action="<? $_SERVER['PHP_SELF'] ?>" method="POST" class="login-form text-center">
             <h1 class="mb-5 font-weight-light text-uppercase"><img src="logo2.png" height="100" width="100" alt=""></h1>
             <div class="form-group">
                 <input type="name" name="userName" class="form-control rounded-pill form-control-lg" placeholder="Username">
@@ -102,6 +142,7 @@ div {
             
             <button type="submit" name="login" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
             <p style="color:white" class="mt-3 ">Admin login <a href="Admin.html">>></a></p>
+            <h5 class="text-danger text-center"><?= $msg; ?></h5>
         </form>
     </div>
 

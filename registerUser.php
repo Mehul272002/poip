@@ -826,85 +826,131 @@ footer
       <div class="col-md-12">
         <div class="row">
 
-        <?php
-            if(isset($_POST['submit'])){
-                extract($_POST);
-                    if(strlen($userName)<3){ // Minimum value for username
-                         $error[] = 'Please enter Username using 3 charaters atleast.';
-                    }
+        
+		<div class="col-sm-3">
+        <?php 
+                    if(isset($_POST['signup'])){
+                    extract($_POST);
+                    if(strlen($firstName)<3){ // Minimum 
+                        $error[] = 'Please enter First Name using 3 charaters atleast.';
+                            }
+                    if(strlen($firstName)>20){  // Max 
+                        $error[] = 'First Name: Max length 20 Characters Not allowed';
+                            }
+                    if(!preg_match("/^[A-Za-z _]*[A-Za-z ]+[A-Za-z _]*$/", $firstName)){
+                                $error[] = 'Invalid Entry First Name. Please Enter letters without any Digit or special symbols like ( 1,2,3#,$,%,&,*,!,~,`,^,-,)';
+                            }    
+                    if(strlen($lastName)<3){ // Minimum 
+                        $error[] = 'Please enter Last Name using 3 charaters atleast.';
+                            }
+                    if(strlen($lastName)>20){  // Max 
+                        $error[] = 'Last Name: Max length 20 Characters Not allowed';
+                            }
+                    if(!preg_match("/^[A-Za-z _]*[A-Za-z ]+[A-Za-z _]*$/", $lastName)){
+                                $error[] = 'Invalid Entry Last Name. Please Enter letters without any Digit or special symbols like ( 1,2,3#,$,%,&,*,!,~,`,^,-,)';
+                                }    
+                        if(strlen($userName)<3){ // Change Minimum Lenghth   
+                                $error[] = 'Please enter userName using 3 charaters atleast.';
+                            }
+                    if(strlen($userName)>50){ // Change Max Length 
+                                $error[] = 'userName : Max length 50 Characters Not allowed';
+                            }
+                   
+                    if(strlen($email)>50){  // Max 
+                                $error[] = 'Email: Max length 50 Characters Not allowed';
+                            }
 
+                            if(strlen($password)<5){ // min 
+                                $error[] = 'The password is 6 characters long.';
+                            }
+                            
+                            if(strlen($password)>20){ // Max 
+                                $error[] = 'Password: Max length 20 Characters Not allowed';
+                            }
+                            $sql="select * from users where (userName='$userName' or email='$email');";
+                        $res=mysqli_query($dbc,$sql);
+                    if (mysqli_num_rows($res) > 0) {
+                    $row = mysqli_fetch_assoc($res);
 
+                        if($userName==$row['userName'])
+                        {
+                            $error[] ='userName alredy Exists.';
+                            } 
+                        if($email==$row['email'])
+                        {
+                                $error[] ='Email alredy Exists.';
+                            } 
+                        }
+                            if(!isset($error)){ 
+                                $date=date('Y-m-d');
+                                $options = array("cost"=>4);
+                        $password = password_hash($password,PASSWORD_BCRYPT,$options);
+                                
+                            $result = mysqli_query($dbc,"INSERT into users values('','$userName','$firstName','$lastName','$email','$password','$userType')");
 
-
-
-
-            }
-
-        ?>
-
-
-
-
-
-
-
-
-
-          <div class="col-sm-9">
-               
-
-
-
-
-            <div class="card">
-              <div class="card-body">
-               
-
-              <div class="d-flex justify-content-center align-items-center login-container">
-                <form class="login-form text-center">
-                    <h1 class="mb-5 font-weight-light text-uppercase">Register_User</h1>
-
-                     
-                <?php 
-                    if(isset($error)){ 
-                        foreach($error as $error){ 
-                        echo '<p class="errmsg">&#x26A0;'.$error.' </p>'; 
+                            if($result)
+                        {
+                        $done=2; 
+                        }
+                        else{
+                        $error[] ='Failed : Something went wrong';
                         }
                     }
-                 ?>
-                    
-                    <div class="form-group">
-                      <input type="name" name="userName" class="form-control rounded-pill form-control-lg" placeholder="User-Name" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="name" name="firstName" class="form-control rounded-pill form-control-lg" placeholder="First-Name" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="name" name="lastName" class="form-control rounded-pill form-control-lg" placeholder="Last-Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control rounded-pill form-control-lg" placeholder="Email-Address" required> 
-                    </div>
-                    <div class="form-group">  
-                        <input type="password" name="password" class="form-control rounded-pill form-control-lg" placeholder="Password" required>
-                    </div>
-                    <divc class="form-group">
-                        <input type="text" name="userType" placeholder="Select user type" class="form-control rounded-pill form-control-lg;" list="users" aria-label="Text input with dropdown button"/>
-                        <datalist id="users">
-                            <option>Admin</option>
-                            <option>Faculty</option>
-                            <option>Student</option>
-                        </datalist>
-                   </div>
-                    <div  class="form-group">
-                      <button style="background:#296e70; border-color:#296e70; color:#fff;" type="submit" name="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Submit</button>
-                    </div> 
-                    <!--/Register user end -->
+ }
+?>
 
-              </div>
+     
+            <?php 
+                if(isset($error)){ 
+                foreach($error as $error){ 
+                echo '<p class="errmsg">&#x26A0;'.$error.' </p>'; 
+                }
+                }
+            ?>
+        </div>
+
+          <div class="col-sm-6">
+            <div class="card">
+            <div class="card-body">
+            
+             
+                <div class="d-flex justify-content-center align-items-center login-container signup_form">
+                <form class="login-form text-center" action="" method="POST">
+                <h1 class="mb-5 font-weight-light text-uppercase">Register_User</h1>
+                                       	
+                                     
+                                        <div class="form-group">
+                                         <input type="text" class="form-control" name="firstName" placeholder="First Name" value="<?php if(isset($error)){ echo $_POST['firstName'];}?>" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="lastName" placeholder="Last Name" value="<?php if(isset($error)){ echo $_POST['lastName'];}?>" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="userName" placeholder="Username" value="<?php if(isset($error)){ echo $_POST['userName'];}?>" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" placeholder="Email-Address" value="<?php if(isset($error)){ echo $_POST['email'];}?>" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="password" placeholder="Password" class="form-control" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="userType" placeholder="Select User-type" list="users" aria-label="Text input with dropdown button" value="<?php if(isset($error)){ echo $_POST['userType'];}?>" required="">
+                                                <datalist id="users">
+                                                        <option>Admin</option>
+                                                        <option>Faculty</option>
+                                                        <option>Student</option>
+                                                </datalist>
+                                        </div> 
+                                        <button type="submit" name="signup" class="btn btn-primary btn-group-lg form_btn">SignUp</button>
+                </form>
             </div>
+         <!--/Register user end -->
+              </div>
             <!--Announments Section-->
           </div>
+          </div>
+
           <div class="col-sm-3">
             <div class="card">
               <div class="card-body">
@@ -935,13 +981,12 @@ footer
           
                    
         </div>
- </div>
-<
+ 
      
                     
         <!-- /.container-fluid -->
 
-      </div>
+ </div>
 			
 			
 			

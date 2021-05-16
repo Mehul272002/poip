@@ -1,13 +1,14 @@
 <?php require_once("config.php"); ?>
-
-
 <?php
-    if(!isset($_SESSION['userName']) || $_SESSION['userType']!="Admin"){
-        header("localtion:index.php");
+    if(!isset($_SESSION['userName']) || $_SESSION['userType']!="Student"){
+        header("localtion:login.php");
     }
 ?>
 
 
+
+
+<h1>Hello : <?= $_SESSION['userName']?></h1>
 
 
 <!DOCTYPE html>
@@ -19,6 +20,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to admin Login</h1>
+    <h1>Welcome to student dashboard!</h1>
 </body>
 </html>

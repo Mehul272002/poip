@@ -1,8 +1,12 @@
 <?php
 session_start();
 $dbHost = 'localhost';
-$dbName = '';
 $dbUsername = 'root';
-$dbPassword = '';
-$dbc= mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName); 
+$dbPassword = 'admin';
+$dbName = 'poip';
+$dbport = 3308;
+
+$dbc= mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName,$dbport); 
+
+
 ?>
