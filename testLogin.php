@@ -15,7 +15,7 @@
 		</div>
 		<div class="col-sm-4">
 			<div class="login_form">
- 	<form action="" method="POST">
+ 	<form action="login_process.php" method="POST">
   <div class="form-group">
  <img src="https://technosmarter.com/assets/images/logo.png" alt="Techno Smarter" class="logo img-fluid"> <br>
 <?php 
@@ -31,6 +31,19 @@ if(isset($_GET['loginerror'])) {
     <label class="label_txt">Password </label>
     <input type="password" name="password" class="form-control" required="">
   </div>
+  <div class="form-group" >
+  <label class="label_txt">UserType </label>
+                <font color="white">
+                <label for="userType">User type : </label>
+                <input type="radio" name="userType" value="Student" class="custom-radio" required>&nbsp;Student |
+                <input type="radio" name="userType" value="Faculty" class="custom-radio" required>&nbsp;Faculty |
+                <input type="radio" name="userType" value="Admin" class="custom-radio" required>&nbsp;Admin 
+                </font>
+            </div>
+            
+
+
+
   <button type="submit" name="sublogin" class="btn btn-primary btn-group-lg form_btn">Login</button>
 </form>
 <p style="font-size: 12px;text-align: center;margin-top: 10px;"><a href="forgot-password.php" style="color: #00376b;">Forgot Password?</a> </p>

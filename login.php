@@ -6,8 +6,8 @@
     if(isset($_POST['login'])){
         $userName=$_POST['userName'];
         $password=$_POST['password'];
-        $options = array("cost"=>4);
-        $password=password_hash($password,PASSWORD_DEFAULT,$options);
+       // $options = array("cost"=>4);
+      //$password=password_hash($password,PASSWORD_B,$options);
         $userType=$_POST['userType'];
 
         $sql= "SELECT * FROM users WHERE userName=? AND password=? AND userType=?";
@@ -23,13 +23,13 @@
         session_write_close();
 
         if($result->num_rows==1 && $_SESSION['userType']=="Student"){
-            header("loacation:studentDashboard.php");//temp code for directing student login to sucess dashboard page 
+            header("location:studentDashboard.php");//temp code for directing student login to sucess dashboard page 
         }
         else if($result->num_rows==1 && $_SESSION['userType']=="Faculty"){
-            header("loacation:facultyDashboard.php");//temp code for directing faculty login to sucess dashboard page 
+            header("location:facultyDashboard.php");//temp code for directing faculty login to sucess dashboard page 
         }
         else if($result->num_rows==1 && $_SESSION['userType']=="Admin"){
-            header("loacation:adminDashboard.php");//temp code for directing admin login to sucess dashboard page 
+            header("location:adminDashboard.php");//temp code for directing admin login to sucess dashboard page 
         }
         else{
             $msg="User or Password is Incorrect!";
@@ -122,29 +122,41 @@ div {
 
 <body>
 
-    <div class="d-flex justify-content-center align-items-center login-container">
-        <form action="<? $_SERVER['PHP_SELF'] ?>" method="POST" class="login-form text-center">
-            <h1 class="mb-5 font-weight-light text-uppercase"><img src="logo2.png" height="100" width="100" alt=""></h1>
+<div class="d-flex justify-content-center align-items-center login-container">
+  <form action="login_process.php" method="POST">
+    <center>
+    <h1 class="mb-3 font-weight-light text-uppercase"><img src="logo2.png" height="100" width="100" alt=""></h1>
+    </center>
             <div class="form-group">
-                <input type="name" name="userName" class="form-control rounded-pill form-control-lg" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" class="form-control rounded-pill form-control-lg" placeholder="Password">
-            </div>
-            <div class="form-group" >
+        <?php 
+        if(isset($_GET['loginerror'])) {
+          $loginerror=$_GET['loginerror'];
+        }
+        if(!empty($loginerror)){  echo '<span style="color:#AFA;text-align:center;">Invalid login credentials entered, Please try again</span>'; } 
+        ?>
+
+    
+    <input type="text" class="form-control rounded-pill form-control-lg" name="login_var" placeholder="Username" value="<?php if(!empty($loginerror)){ echo  $loginerror; } ?>" class="form-control" required="">
+    </div>
+    <div class="form-group">
+    <input type="password" class="form-control rounded-pill form-control-lg" name="password" placeholder="Password" class="form-control" required="">
+    </div>
+    <div class="form-group" >
                 <font color="white">
                 <label for="userType">User type : </label>
-                <input type="radio" name="userType" value="student" class="custom-radio" required>&nbsp;Student |
-                <input type="radio" name="userType" value="faculty" class="custom-radio" required>&nbsp;Faculty |
-                <input type="radio" name="userType" value="amdin" class="custom-radio" required>&nbsp;Amdin 
+                <input type="radio" name="userType" value="Student" class="custom-radio" required>&nbsp;Student |
+                <input type="radio" name="userType" value="Faculty" class="custom-radio" required>&nbsp;Faculty |
+                <input type="radio" name="userType" value="Admin" class="custom-radio" required>&nbsp;Admin 
                 </font>
             </div>
             
-            <button type="submit" name="login" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
-            <p style="color:white" class="mt-3 ">Admin login <a href="Admin.html">>></a></p>
-            <h5 class="text-danger text-center"><?= $msg; ?></h5>
-        </form>
-    </div>
+
+
+
+ 
+  <button type="submit" name="sublogin" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Login</button>
+</form>
+  
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -97,10 +97,13 @@
 
 <nav>   
 	<ul class="nav-list">
+	<h1 class="mb-5">  POIP </h1>
     	<li><a style="text-decoration:none" href="#" class="nav-links">HOME</a></li>
-    	<li><a style="text-decoration:none" href="#" class="nav-links">Student login</a></li>
-    	<li><a style="text-decoration:none"href="#" class="nav-links">Faculty login</a></li>
-    	<li><a style="text-decoration:none" href="#" class="nav-links">Admin Login</a></li>
+    	<li><a style="text-decoration:none" href="login.php" class="nav-links">LOGIN</a></li>
+		<li><a style="text-decoration:none" href="#" class="nav-links">ABOUT</a></li>
+		<li><a style="text-decoration:none" href="#" class="nav-links">CONTACT</a></li>
+		
+    
 	</ul>
 </nav>
 
