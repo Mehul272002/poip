@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NAVBAR HOVER EFFECT (PART-2)</title>
+    <title>POIP</title>
 
 
 <link rel="icon" href="logo2.png" type="image/icon type"

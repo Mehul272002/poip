@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <title>Register_User</title>
+    <title>Register User</title>
 	
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 	    <!--fontawesome-->
@@ -590,7 +590,7 @@ footer
 						Pages
 					</li>
 	<li class=""> 
-		  <a class="nav-link text-left "  role="button" href="welcome_dashboard.html">
+		  <a class="nav-link text-left "  role="button" href="adminDashboard.php">
        <i class="flaticon-bar-chart-1"></i>  Dashboard 
          </a>
 		  </li>
@@ -623,8 +623,8 @@ footer
 		  </div>
 		  </li>
 		  <li class=""> 
-		  <a class="nav-link text-left active"  role="button" href="Register_User.html" >
-       <i class="flaticon-bar-chart-1"></i>  Register_User
+		  <a class="nav-link text-left active"  role="button" href="adminRegister.php" >
+       <i class="flaticon-bar-chart-1"></i>  Register User
          </a>
 		  </li>
 		 
@@ -916,7 +916,7 @@ footer
              
                 <div class="d-flex justify-content-center align-items-center login-container signup_form">
                 <form class="login-form text-center" action="" method="POST">
-                <h1 class="mb-5 font-weight-light text-uppercase">Register_User</h1>
+                <h1 class="mb-5 font-weight-light text-uppercase">Register User</h1>
                                        	
                                      
                                         <div class="form-group">
