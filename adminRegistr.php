@@ -1,18 +1,8 @@
 <?php
 
  require_once("config.php");
- require_once("login.php");
- if(!isset($_SESSION['userType']))
- {
-  header('Location: login.php');
-
- }
- else
- {
-  header('Location: adminRegister.php');
-
- }
-  
+ 
+ 
  
 ?>
 
@@ -642,7 +632,7 @@ footer
 		  </div>
 		  </li>
 		  <li class=""> 
-		  <a class="nav-link text-left active"  role="button" href="adminRegister.php" >
+		  <a class="nav-link text-left active"  role="button" href="adminRegistr.php" >
        <i class="flaticon-bar-chart-1"></i>  Register User
          </a>
 		  </li>
@@ -905,7 +895,7 @@ footer
                                 $options = array("cost"=>4);
                         $password = password_hash($password,PASSWORD_BCRYPT,$options);
                                 
-                            $result = mysqli_query($dbc,"INSERT into users values('','$userName','$firstName','$lastName','$email','$password','$userType','')");
+                            $result = mysqli_query($dbc,"INSERT into users values('','$userName','$firstName','$lastName','$email','$password','$userType')");
 
                             if($result)
                         {

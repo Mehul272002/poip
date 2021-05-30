@@ -605,7 +605,7 @@ footer
 		  </div>
 		  </li>
 		  <li class=""> 
-		  <a class="nav-link text-left"  role="button" href="adminRegister.php" >
+		  <a class="nav-link text-left"  role="button" href="adminRegistr.php" >
        <i class="flaticon-bar-chart-1"></i>  Register User
          </a>
 		  </li>
